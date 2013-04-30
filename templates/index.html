@@ -1,0 +1,26 @@
+<!doctype html>
+<head>
+	<title>Arriving Trains</title>
+	<link rel="stylesheet" type="text/css" href="static/style.css">
+</head>
+<body>
+	{% for range in trip_ranges %}
+		<div class="header">Arriving in {{ range[0] }}</div>
+		
+		<ul>
+		{% for trip in range[1] %}
+	 		<li class="row">
+	 			<div id="circle" class="c{{ trip.line }}">
+	 				<h1>{{ trip.line }}</h1>
+	 			</div>
+				<p>Station: {{ trip.station }}</p>
+				<p>Direction: {{ trip.head }}</p>
+<!-- 				<p>Arriving in {{ trip.arrival_time - now | int}} seconds.</p>
+ -->
+			</li>
+		{% endfor %}
+		</ul>
+	{% endfor %}
+</body>
+</html>
+
