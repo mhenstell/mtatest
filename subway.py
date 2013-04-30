@@ -87,13 +87,22 @@ def get_train_schedule(stops): # TODO does not handle day wrapovers
 		# print "\t", id, name
 
 		for trunk in stops:
+
 			# print "\t\t", trunk
+
 			if id[0] in trunk and stops[trunk] == name:
+
 				# print "\t\t\tFound", id
+				
 				stop_ids.append(id)
 				break
 
 	stop_ids = "(%s)" % ','.join(["'%s'" % entry for entry in stop_ids])
 	return conn.execute(train_stop_times_sql % (stop_ids, time.strftime('%A').lower())).fetchall()
 
+def get_trains_arriving_at(stops, start, to):
+	
+	arriving_trains_raw = get_train_schedule(stops)
+	trips = list_to_objects(arriving_trains_raw)
 
+	return get_trip_range(trips, start, to)
